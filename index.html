@@ -149,7 +149,7 @@
     <!-- Put your own video file/URL in the src below. Until then this element
          simply won't render and the fallback gradient behind it shows instead. -->
     <video id="bgVideo" autoplay muted loop playsinline>
-      <source src="https://r2.guns.lol/887b0b85-a629-46cf-b232-31573a7e89fd.mp4" type="video/mp4">
+      <source src="https://r2.guns.lol/c4015781-da81-46e5-83fd-2eab7e4aa49c.mp4" type="video/mp4">
     </video>
   </div>
   <div class="video-fallback"></div>
@@ -208,7 +208,7 @@ function animateTo(n){
   })();
 }
 
-fetch(`https://api.countapi.xyz/hit/${COUNTER_NAMESPACE}/${COUNTER_KEY}`)
+fetch(`https://countapi.mileshilliard.com/api/v1/hit/mitesh-yadav-profile-views`)
   .then(r => r.json())
   .then(data => animateTo(data.value))
   .catch(() => {
@@ -216,7 +216,7 @@ fetch(`https://api.countapi.xyz/hit/${COUNTER_NAMESPACE}/${COUNTER_KEY}`)
     localStorage.setItem('localViews', local);
     animateTo(local);
   });
-
+  
   // volume toggle
   const video = document.getElementById('bgVideo');
   const volBtn = document.getElementById('volBtn');
