@@ -193,16 +193,29 @@
   <footer class="credit"></footer>
 
 <script>
-  // view counter count-up
-  let target = 1586;
+ // real, persistent view counter (increments on every page load)
+const viewEl = document.getElementById('viewCount');
+const COUNTER_NAMESPACE = "mitesh-yadav-profile"; // make this unique to you
+const COUNTER_KEY = "views";
+
+function animateTo(n){
   let count = 0;
-  const viewEl = document.getElementById('viewCount');
-  function countUp(){
-    count = Math.min(count+3, target);
+  const step = Math.max(1, Math.ceil(n/60));
+  (function tick(){
+    count = Math.min(count+step, n);
     viewEl.textContent = count.toLocaleString();
-    if(count < target) requestAnimationFrame(countUp);
-  }
-  countUp();
+    if(count < n) requestAnimationFrame(tick);
+  })();
+}
+
+fetch(`https://api.countapi.xyz/hit/${COUNTER_NAMESPACE}/${COUNTER_KEY}`)
+  .then(r => r.json())
+  .then(data => animateTo(data.value))
+  .catch(() => {
+    const local = parseInt(localStorage.getItem('localViews') || '0', 10) + 1;
+    localStorage.setItem('localViews', local);
+    animateTo(local);
+  });
 
   // volume toggle
   const video = document.getElementById('bgVideo');
@@ -220,6 +233,17 @@
     setTimeout(()=> el.classList.remove('copied'), 1500);
   }
 </script>
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+<!-- Vercel Speed Insights -->
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 
 </body>
 </html>
