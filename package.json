@@ -1,0 +1,14 @@
+{
+  "name": "bio",
+  "version": "1.0.0",
+  "description": "Personal bio website",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Mitesh Yadav",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
