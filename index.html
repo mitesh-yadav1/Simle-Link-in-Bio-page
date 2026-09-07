@@ -199,15 +199,14 @@ function animateTo(n){
   })();
 }
 
-// self-hosted counter: only increments, no way to set an arbitrary value
-fetch(`/api/hit`)
-  .then(r => r.json())
-  .then(data => animateTo(data.value))
-  .catch(() => {
-    const local = parseInt(localStorage.getItem('localViews') || '0', 10) + 1;
-    localStorage.setItem('localViews', local);
-    animateTo(local);
-  });
+// fake but stable-per-visitor view count between 1000-2000
+// (stored in localStorage so it doesn't reshuffle on every refresh for the same visitor)
+let fakeCount = parseInt(localStorage.getItem('fakeViews') || '0', 10);
+if (!fakeCount) {
+  fakeCount = Math.floor(Math.random() * 1001) + 1000; // 1000-2000 inclusive
+  localStorage.setItem('fakeViews', fakeCount);
+}
+animateTo(fakeCount);
 
   const video = document.getElementById('bgVideo');
   const volBtn = document.getElementById('volBtn');
