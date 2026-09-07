@@ -3,7 +3,11 @@ import Redis from 'ioredis';
 let redis;
 function getRedis() {
   if (!redis) {
-    redis = new Redis(process.env.KV_REST_API_URL); // rediss:// connection string
+    redis = new Redis(process.env.KV_REST_API_URL, {
+      tls: {}, // force TLS even if the URL scheme doesn't say rediss://
+      maxRetriesPerRequest: 1, // fail fast instead of retrying 20x while we debug
+      connectTimeout: 5000,
+    });
   }
   return redis;
 }
